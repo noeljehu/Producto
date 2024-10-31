@@ -1,0 +1,43 @@
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql_producto
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456  # Define solo la contraseña del root
+      MYSQL_DATABASE: producto        # Crea una base de datos inicial
+      # Elimina las siguientes líneas
+      # MYSQL_USER: root
+      # MYSQL_PASSWORD: 123456
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - spring_network
+
+  spring_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: spring_producto
+    environment:
+      SPRING_APPLICATION_NAME: producto
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/producto
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 123456
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_HIBERNATE_DIALECT: org.hibernate.dialect.MySQLDialect
+      SPRING_JPA_SHOW_SQL: "true"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    networks:
+      - spring_network
+
+networks:
+  spring_network:
+
+volumes:
+  mysql_data:
