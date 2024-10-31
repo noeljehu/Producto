@@ -5,11 +5,11 @@ Este proyecto contiene un contenedor de Docker para una aplicación Spring Boot 
 
 ## Pasos para Descargar y Ejecutar
 
-1. **Clona el Repositorio**
+1.  **Clona el Repositorio**
    ```bash
    git clone https://github.com/noeljehu/Producto.git
    
-2   # Descarga las Imágenes de Docker
+2    # Descarga las Imágenes de Docker
 
 docker pull ghcr.io/noeljehu/producto:latest
 
