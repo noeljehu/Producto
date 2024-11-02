@@ -1,22 +1,18 @@
-# Producto
+# Proyecto Producto - Imágenes de Docker
 
-## Descripción
-Este proyecto contiene un contenedor de Docker para una aplicación Spring Boot y una base de datos MySQL.
+Este proyecto contiene las imágenes Docker para una aplicación Spring Boot (`producto-spring_app`) y una base de datos MySQL, disponibles en GitHub Packages. Sigue los pasos a continuación para descargar y ejecutar ambas imágenes.
 
-## Pasos para Descargar y Ejecutar
+---
 
-1.  **Clona el Repositorio**
-   ```bash
-   git clone https://github.com/noeljehu/Producto.git
-   
-2    # Descarga las Imágenes de Docker
+## Descargar y Ejecutar las Imágenes
 
-docker pull ghcr.io/noeljehu/producto:latest
+Ejecuta los siguientes comandos para descargar ambas imágenes y levantar los contenedores de MySQL y la aplicación Spring Boot:
 
-3   # Ejecuta los Contenedores
+```bash
+# Descargar y ejecutar MySQL
+docker pull ghcr.io/noeljehu/producto:mysql
+docker run -d --name mysql-container -e MYSQL_ROOT_PASSWORD=123456 -e MYSQL_DATABASE=producto -p 3307:3306 ghcr.io/noeljehu/producto:mysql
 
-docker run -d --name mysql_producto -e MYSQL_ROOT_PASSWORD=123456 -p 3307:3306 ghcr.io/noeljehu/producto:latest
-docker run -d --name spring_producto --link mysql_producto:mysql -p 8080:8080 ghcr.io/noeljehu/producto:latest
-
-
-
+# Descargar y ejecutar la Aplicación Spring Boot
+docker pull ghcr.io/noeljehu/producto:producto-spring_app
+docker run -d --name spring-app-container -p 8080:8080 ghcr.io/noeljehu/producto:producto-spring_app
